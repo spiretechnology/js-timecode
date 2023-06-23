@@ -6,7 +6,7 @@
 	"homepage": "https://github.com/spiretechnology/js-timecode",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/customrealms/core.git"
+		"url": "https://github.com/spiretechnology/js-timecode.git"
 	},
 	"scripts": {
 		"build": "tsc",
