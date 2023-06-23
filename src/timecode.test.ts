@@ -1,5 +1,5 @@
 import { Parse } from './parse';
-import { Rate_24, Rate_59_94 } from './rate';
+import { Rate_23_976, Rate_24, Rate_59_94 } from './rate';
 import { Timecode } from './timecode';
 
 describe('testing 59.94 fps (DF) parse to frame count', () => {
@@ -84,5 +84,29 @@ describe('testing 24 fps (NDF) offsets', () => {
 	test('adding 90 minutes to start timecode', () => {
 		const ninetyMinutesLater = start.addSeconds(90 * 60);
 		expect(ninetyMinutesLater.toString()).toBe('16:25:41:22');
+	});
+});
+
+describe('readme example tests', () => {
+	test('parse a timecode (drop frame)', () => {
+		const tc = Parse('00:01:02;23', Rate_23_976);
+		expect(tc.toString()).toBe('00:01:02;23');
+		expect(tc.frame).toBe(1509);
+	});
+	test('parse a timecode (non-drop frame)', () => {
+		const tc = Parse('00:01:02:23', Rate_24);
+		expect(tc.toString()).toBe('00:01:02:23');
+		expect(tc.frame).toBe(1511);
+	});
+	test('create a timecode from a frame count', () => {
+		const tc = new Timecode(1511, Rate_24, false /* non-drop frame */);
+		expect(tc.toString()).toBe('00:01:02:23');
+		expect(tc.frame).toBe(1511);
+	});
+	test('algebra with timecodes and frames', () => {
+		let tc = Parse('00:01:02:23', Rate_24);
+		tc = tc.add(3);
+		expect(tc.toString()).toBe('00:01:03:02');
+		expect(tc.frame).toBe(1514);
 	});
 });
