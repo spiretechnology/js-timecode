@@ -1,0 +1,16 @@
+{
+	"compileOnSave": false,
+	"compilerOptions": {
+		"strict": true,
+		"outDir": "./dist",
+		"sourceMap": true,
+		"declaration": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"target": "es5",
+		"typeRoots": ["node_modules/@types"],
+		"lib": ["es2018", "dom"]
+	},
+	"files": ["src/index.ts"]
+}

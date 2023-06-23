@@ -1,0 +1,6 @@
+.github
+node_modules
+dist
+out
+.eslintrc.js
+*.min.js
