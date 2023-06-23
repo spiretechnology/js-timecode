@@ -12,7 +12,25 @@
 <div class="col-content">
 <div class="tsd-page-title">
 <h2>@spiretechnology/js-timecode</h2></div>
-<div class="tsd-panel tsd-typography"><a id="md:spiretechnologyjs-timecode" class="tsd-anchor"></a><h1><a href="#md:spiretechnologyjs-timecode">@spiretechnology/js-timecode</a></h1><p>SMPTE timecode parser and formatter for JavaScript and TypeScript.</p>
+<div class="tsd-panel tsd-typography"><a id="md:js-timecode" class="tsd-anchor"></a><h1><a href="#md:js-timecode">js-timecode</a></h1><p>A TypeScript / JavaScript library for parsing and manipulating SMPTE timecodes and frame rates.</p>
+<p>Development of this library is very test-driven to ensure accuracy of the frame and timecode calculations. If you&#39;d like to contribute to this library, adding additional useful test cases is a great place to start!</p>
+<a id="md:installation" class="tsd-anchor"></a><h2><a href="#md:installation">Installation</a></h2><pre><code class="language-sh"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-3">--save</span><span class="hl-1"> </span><span class="hl-2">@spiretechnology/js-timecode</span>
+</code><button>Copy</button></pre>
+<a id="md:usage-examples" class="tsd-anchor"></a><h2><a href="#md:usage-examples">Usage Examples</a></h2><a id="md:parse-a-timecode-drop-frame" class="tsd-anchor"></a><h3><a href="#md:parse-a-timecode-drop-frame">Parse a timecode (drop frame)</a></h3><pre><code class="language-ts"><span class="hl-4">import</span><span class="hl-1"> { </span><span class="hl-5">Parse</span><span class="hl-1">, </span><span class="hl-5">Rate_23_976</span><span class="hl-1"> } </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-2">&#39;@spiretechnology/js-timecode&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-3">const</span><span class="hl-1"> </span><span class="hl-6">tc</span><span class="hl-1"> = </span><span class="hl-0">Parse</span><span class="hl-1">(</span><span class="hl-2">&#39;00:01:02;23&#39;</span><span class="hl-1">, </span><span class="hl-5">Rate_23_976</span><span class="hl-1">);</span><br/><span class="hl-5">tc</span><span class="hl-1">.</span><span class="hl-0">toString</span><span class="hl-1">(); </span><span class="hl-7">// =&gt; 00:01:02;23</span><br/><span class="hl-5">tc</span><span class="hl-1">.</span><span class="hl-5">frame</span><span class="hl-1">; </span><span class="hl-7">// =&gt; 1509</span>
+</code><button>Copy</button></pre>
+<a id="md:parse-a-timecode-non-drop-frame" class="tsd-anchor"></a><h3><a href="#md:parse-a-timecode-non-drop-frame">Parse a timecode (non-drop frame)</a></h3><pre><code class="language-ts"><span class="hl-3">const</span><span class="hl-1"> </span><span class="hl-6">tc</span><span class="hl-1"> = </span><span class="hl-0">Parse</span><span class="hl-1">(</span><span class="hl-2">&#39;00:01:02:23&#39;</span><span class="hl-1">, </span><span class="hl-5">Rate_24</span><span class="hl-1">);</span><br/><span class="hl-5">tc</span><span class="hl-1">.</span><span class="hl-0">toString</span><span class="hl-1">(); </span><span class="hl-7">// =&gt; 00:01:02:23</span><br/><span class="hl-5">tc</span><span class="hl-1">.</span><span class="hl-5">frame</span><span class="hl-1">; </span><span class="hl-7">// =&gt; 1511</span>
+</code><button>Copy</button></pre>
+<a id="md:create-a-timecode-from-a-frame-count" class="tsd-anchor"></a><h3><a href="#md:create-a-timecode-from-a-frame-count">Create a timecode from a frame count</a></h3><pre><code class="language-ts"><span class="hl-3">const</span><span class="hl-1"> </span><span class="hl-6">tc</span><span class="hl-1"> = </span><span class="hl-3">new</span><span class="hl-1"> </span><span class="hl-0">Timecode</span><span class="hl-1">(</span><span class="hl-8">1511</span><span class="hl-1">, </span><span class="hl-5">Rate_24</span><span class="hl-1">, </span><span class="hl-3">false</span><span class="hl-1"> </span><span class="hl-7">/* non-drop frame */</span><span class="hl-1">);</span><br/><span class="hl-5">tc</span><span class="hl-1">.</span><span class="hl-0">toString</span><span class="hl-1">(); </span><span class="hl-7">// =&gt; 00:01:02:23</span><br/><span class="hl-5">tc</span><span class="hl-1">.</span><span class="hl-5">frame</span><span class="hl-1">; </span><span class="hl-7">// =&gt; 1511</span>
+</code><button>Copy</button></pre>
+<a id="md:algebra-with-timecodes-and-frames" class="tsd-anchor"></a><h3><a href="#md:algebra-with-timecodes-and-frames">Algebra with timecodes and frames</a></h3><pre><code class="language-ts"><span class="hl-3">let</span><span class="hl-1"> </span><span class="hl-5">tc</span><span class="hl-1"> = </span><span class="hl-0">Parse</span><span class="hl-1">(</span><span class="hl-2">&#39;00:01:02:23&#39;</span><span class="hl-1">, </span><span class="hl-5">Rate_24</span><span class="hl-1">);</span><br/><span class="hl-5">tc</span><span class="hl-1"> = </span><span class="hl-5">tc</span><span class="hl-1">.</span><span class="hl-0">add</span><span class="hl-1">(</span><span class="hl-8">3</span><span class="hl-1">);</span><br/><span class="hl-5">tc</span><span class="hl-1">.</span><span class="hl-0">toString</span><span class="hl-1">(); </span><span class="hl-7">// =&gt; 00:01:03:02</span><br/><span class="hl-5">tc</span><span class="hl-1">.</span><span class="hl-5">frame</span><span class="hl-1">; </span><span class="hl-7">// =&gt; 1514</span>
+</code><button>Copy</button></pre>
+<a id="md:note-parsing-timecodes-that-don39t-exist-in-drop-frame" class="tsd-anchor"></a><h2><a href="#md:note-parsing-timecodes-that-don39t-exist-in-drop-frame">Note: parsing timecodes that don&#39;t exist in drop frame</a></h2><p>Drop frame timecodes skip the first 2 frames of each minute, unless the minute is a multiple of 10. This changes to the first 4 frames of each minute if the frame rate is 59.94.</p>
+<p>For instance, in <code>23.976</code>, the timecode <code>00:00:59:23</code> is immediately followed by <code>00:01:00:02</code>. Two timecodes were dropped: <code>00:01:00:00</code> and <code>00:01:00:01</code></p>
+<p>Those dropped timecodes don&#39;t correspond to any actual frame number, and so we need to choose how to resolve those frames. The choice we have made with this library is to round up the next valid frame. If you try to parse <code>00:01:00:00</code>, the result will be rounded up to <code>00:01:00:02</code>, which is the next valid frame in the sequence.</p>
+<a id="md:contributing" class="tsd-anchor"></a><h2><a href="#md:contributing">Contributing</a></h2><p>We welcome contributions that make this library more reliable. To add test cases, fix bugs, or anything else, please submit a pull request.</p>
+<a id="md:other-resources" class="tsd-anchor"></a><h2><a href="#md:other-resources">Other resources</a></h2><ul>
+<li><a href="https://github.com/spiretechnology.com/go-timecode">spiretechnology/go-timecode</a> - A Go library for parsing and manipulating SMPTE timecodes and frame rates.</li>
+</ul>
 </div></div>
 <div class="col-sidebar">
 <div class="page-menu">
@@ -33,7 +51,20 @@
 <ul>
 <li>
 <ul>
-<li><a href="#md:spiretechnologyjs-timecode"><span>@spiretechnology/js-<wbr/>timecode</span></a></li></ul></li></ul></div></details></div>
+<li><a href="#md:js-timecode"><span>js-<wbr/>timecode</span></a></li>
+<li>
+<ul>
+<li><a href="#md:installation"><span>Installation</span></a></li>
+<li><a href="#md:usage-examples"><span>Usage <wbr/>Examples</span></a></li>
+<li>
+<ul>
+<li><a href="#md:parse-a-timecode-drop-frame"><span>Parse a timecode (drop frame)</span></a></li>
+<li><a href="#md:parse-a-timecode-non-drop-frame"><span>Parse a timecode (non-<wbr/>drop frame)</span></a></li>
+<li><a href="#md:create-a-timecode-from-a-frame-count"><span>Create a timecode from a frame count</span></a></li>
+<li><a href="#md:algebra-with-timecodes-and-frames"><span>Algebra with timecodes and frames</span></a></li></ul></li>
+<li><a href="#md:note-parsing-timecodes-that-don39t-exist-in-drop-frame"><span>Note: parsing timecodes that don&#39;t exist in drop frame</span></a></li>
+<li><a href="#md:contributing"><span>Contributing</span></a></li>
+<li><a href="#md:other-resources"><span>Other resources</span></a></li></ul></li></ul></li></ul></div></details></div>
 <div class="site-menu">
 <nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-4"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-namespace)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.33 16V7.24H10.77L13.446 14.74C13.43 14.54 13.41 14.296 13.386 14.008C13.37 13.712 13.354 13.404 13.338 13.084C13.33 12.756 13.326 12.448 13.326 12.16V7.24H14.37V16H12.93L10.266 8.5C10.282 8.692 10.298 8.936 10.314 9.232C10.33 9.52 10.342 9.828 10.35 10.156C10.366 10.476 10.374 10.784 10.374 11.08V16H9.33Z" fill="var(--color-text)"></path></g></svg><span>@spiretechnology/js-<wbr/>timecode</span></a>
 <ul class="tsd-small-nested-navigation">
