@@ -61,4 +61,4 @@ We welcome contributions that make this library more reliable. To add test cases
 
 ## Other resources
 
--   [spiretechnology/go-timecode](https://github.com/spiretechnology.com/go-timecode) - A Go library for parsing and manipulating SMPTE timecodes and frame rates.
+-   [spiretechnology/go-timecode](https://github.com/spiretechnology/go-timecode) - A Go library for parsing and manipulating SMPTE timecodes and frame rates.
