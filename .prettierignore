@@ -1,6 +1,7 @@
 .github
 node_modules
 dist
+docs
 out
 .eslintrc.js
 *.min.js
